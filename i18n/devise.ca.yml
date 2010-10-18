@@ -1,0 +1,39 @@
+ca:
+  errors:
+    messages:
+      not_found: "no trobat"
+      already_confirmed: "ja confirmat"
+      not_locked: "no era bloquejat"
+
+  devise:
+    failure:
+      unauthenticated: "Cal que t'identifiquis abans de continuar."
+      unconfirmed: 'Cal que confirmis el teu compte abans de continuar.'
+      locked: 'El teu compte es troba bloquejat.'
+      invalid: 'Adreça de correu o contrassenya no vàlids.'
+      invalid_token: "Token d'autentificació no vàlid."
+      timeout: 'El temps de la sessió ha expirat, torna a entrar per continuar.'
+      inactive: 'Encara no has activat el teu compte.'
+    sessions:
+      signed_in: 'Ja has entrat!'
+      signed_out: 'Ja has sortit!'
+    passwords:
+      send_instructions: "En un minuts rebràs un correu amb les instrucions sobre com refer la teva contrassenya."
+      updated: "La contrassenya ja s'ha canviat."
+    confirmations:
+      send_instructions: 'En un minuts rebràs un correu amb les instrucions sobre com confirmar el teu compte.'
+      confirmed: 'Ja has confirmat el teu compte. Ara pots continuar.'
+    registrations:
+      signed_up: "Ja t'has registrat correctament. En uns minuts rebràs un correu per confirmar el registre."
+      updated: "El compte s'ha actualitzat correctament."
+      destroyed: "Adéu! El teu compte s'ha cancelat, esperem veure't de nou aviat"
+    unlocks:
+      send_instructions: 'En un minuts rebràs un correu amb les instrucions sobre com desbloquejar el teu compte'
+      unlocked: "El teu compte s'ha desbloquejat. Ara ja pots tornar a entrar"
+    mailer:
+      confirmation_instructions:
+        subject: 'Instruccions de confirmació'
+      reset_password_instructions:
+        subject: 'Instruccions per refer la contrassenyar'
+      unlock_instructions:
+        subject: 'Instruccions per desbloquejar compte'
