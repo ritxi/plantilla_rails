@@ -58,7 +58,7 @@ say_recipe 'Test::Unit'
 say_recipe 'jQuery'
 
 inside "public/javascripts" do
-  get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "rails.js"
+  get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "rails.js"
   get "http://code.jquery.com/jquery-1.4.2.min.js",                 "jquery/jquery.min.js"
 end
 
@@ -111,8 +111,8 @@ end
 # >-----------------------------[ Custom Code ]-------------------------------<
 
 inside "config/locales" do
-  get "http://github.com/ritxi/plantilla_rails/raw/master/i18n/ca.yml", "ca.yml"
-  get "http://github.com/ritxi/plantilla_rails/raw/master/i18n/devise.ca.yml", "devise.ca.yml"
+  get "https://github.com/ritxi/plantilla_rails/raw/master/i18n/ca.yml", "ca.yml"
+  get "https://github.com/ritxi/plantilla_rails/raw/master/i18n/devise.ca.yml", "devise.ca.yml"
 end
 
 application do
