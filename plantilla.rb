@@ -74,7 +74,8 @@ end
 # Utilize Devise for authentication, automatically configured for your selected ORM.
 say_recipe 'Devise'
 
-gem 'devise'
+gem "devise", :git => 'git://github.com/plataformatec/devise.git'
+gem "oa-oauth", :require => "omniauth/oauth"
 
 after_bundler do
   generate 'devise:install'

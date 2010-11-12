@@ -4,6 +4,9 @@ ca:
       not_found: "no trobat"
       already_confirmed: "ja confirmat"
       not_locked: "no era bloquejat"
+      not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"
 
   devise:
     failure:
@@ -25,11 +28,15 @@ ca:
       confirmed: 'Ja has confirmat el teu compte. Ara pots continuar.'
     registrations:
       signed_up: "Ja t'has registrat correctament. En uns minuts rebràs un correu per confirmar el registre."
+      inactive_signed_up: "T'has registrat correctament. Tanmateix, no hem pogut deixar-te entrar al teu compte per: %{reason}."
       updated: "El compte s'ha actualitzat correctament."
       destroyed: "Adéu! El teu compte s'ha cancelat, esperem veure't de nou aviat"
     unlocks:
       send_instructions: 'En un minuts rebràs un correu amb les instrucions sobre com desbloquejar el teu compte'
       unlocked: "El teu compte s'ha desbloquejat. Ara ja pots tornar a entrar"
+    omniauth_callbacks:
+      success: 'Autorització correcte del compte %{kind}.'
+      failure: 'Autorització de %{kind} fallita per "%{reason}".'
     mailer:
       confirmation_instructions:
         subject: 'Instruccions de confirmació'
