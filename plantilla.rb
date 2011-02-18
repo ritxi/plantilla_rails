@@ -1,5 +1,5 @@
 # >---------------------------[ Install Command ]-----------------------------<
-#  rails new APP_NAME -m http://railswizard.org/471ceeced3cf567ad691.rb -J 
+#  rails new APP_NAME -m http://railswizard.org/4e5477fc28645502dd5a.rb  -T -J
 # >---------------------------------------------------------------------------<
 #
 #            _____       _ _   __          ___                  _ 
@@ -15,9 +15,9 @@
 #  ___________________________________________________________________________
 # |/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/|
 # |             |                                                             |
-# | Name:       | rforniol_template                                           |
-# | URL:        | http://railswizard.org/471ceeced3cf567ad691.rb              |
-# | Updated:    | October 18, 2010 at 20:53PM                                 |
+# | Name:       | new_template                                                |
+# | URL:        | http://railswizard.org/4e5477fc28645502dd5a.rb              |
+# | Updated:    | February 18, 2011 at 18:33PM                                |
 # |             |                                                             |
 # |\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\|
 #  ---------------------------------------------------------------------------
@@ -29,7 +29,7 @@ Rails.application.config.generators do |g|
 end
 RUBY
 
-template = {"authentication"=>"devise", "templating"=>"haml", "unit_testing"=>"test_unit", "css"=>"sass", "javascript"=>"jquery", "integration_testing"=>"on", "orm"=>"activerecord"}
+template = {"orm"=>"activerecord", "unit_testing"=>"rspec", "integration_testing"=>"steak", "javascript"=>"jquery", "authentication"=>"devise", "templating"=>"haml", "css"=>"sass"}
 recipes = template.values.flatten
 
 def say_recipe(name); say "\033[36m" + "recipe".rjust(10) + "\033[0m" + "    Running #{name} recipe..." end
@@ -45,12 +45,30 @@ say_recipe 'ActiveRecord'
 
 # No additional code required.
 
-# >------------------------------[ Test::Unit ]-------------------------------<
+# >---------------------------------[ RSpec ]---------------------------------<
 
-# Utilize the default Rails test facilities.
-say_recipe 'Test::Unit'
+# Use RSpec for unit testing for this Rails app.
+say_recipe 'RSpec'
 
-# No additional code required.
+gem 'rspec-rails', '>= 2.0.1', :group => [:development, :test]
+
+inject_into_file "config/initializers/generators.rb", :after => "Rails.application.config.generators do |g|\n" do
+  "    g.test_framework = :rspec\n"
+end
+
+after_bundler do
+  generate 'rspec:install'
+end
+
+# >---------------------------------[ Steak ]---------------------------------<
+
+# Use Steak and Capybara for integration testing.
+say_recipe 'Steak'
+
+gem 'steak', '>= 1.0.0.rc.1'
+gem 'capybara'
+
+generate 'steak:install'
 
 # >--------------------------------[ jQuery ]---------------------------------<
 
@@ -59,26 +77,26 @@ say_recipe 'jQuery'
 
 inside "public/javascripts" do
   get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "rails.js"
-  get "http://code.jquery.com/jquery-1.4.2.min.js",                 "jquery/jquery.min.js"
+  get "http://code.jquery.com/jquery-1.5.min.js", "jquery.js"
 end
 
 application do
-  "\n    config.action_view.javascript_expansions[:defaults] = %w(jquery.min rails)\n"
+  "\nconfig.action_view.javascript_expansions[:defaults] = %w(jquery rails)\n"
 end
 
-#gsub_file "config/application.rb", /# JavaScript.*\n/, ""
-#gsub_file "config/application.rb", /# config\.action_view\.javascript.*\n/, ""
+gsub_file "config/application.rb", /# JavaScript.*\n/, ""
+gsub_file "config/application.rb", /# config\.action_view\.javascript.*\n/, ""
 
 # >--------------------------------[ Devise ]---------------------------------<
 
 # Utilize Devise for authentication, automatically configured for your selected ORM.
 say_recipe 'Devise'
 
-gem "devise", :git => 'git://github.com/plataformatec/devise.git'
-gem "oa-oauth", :require => "omniauth/oauth"
+gem 'devise'
 
 after_bundler do
   generate 'devise:install'
+
   case template['orm']
     when 'mongo_mapper'
       gem 'mm-devise'
@@ -87,8 +105,9 @@ after_bundler do
       gsub_file 'config/intializers/devise.rb', 'devise/orm/active_record', 'devise/orm/mongoid'
     when 'active_record'
       # Nothing to do
+      
+    generate 'devise user'
   end
-  generate 'devise user'
 end
 
 # >---------------------------------[ HAML ]----------------------------------<
